@@ -46,7 +46,7 @@ app.get('/api/shuffles', async (req, res) => {
 
 app.post('/api/shuffles', async (req, res) => {
     const newShuffle = req.body.shuffleData;
-    {
+    try {
         await shufflesCollection.insertOne({ shuffleData: newShuffle, timestamp: new Date() });
         const allShuffles = await shufflesCollection.find().toArray();
         res.json({ history: allShuffles.map(entry => entry.shuffleData ) });
