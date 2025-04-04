@@ -2,10 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
-const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+const PORT = process.env.PORT || 3000;
 
 const DATA_FILE = 'shuffles.json';
 
@@ -18,6 +19,7 @@ const loadShuffles = () => {
 
 const saveShuffles = (shuffles) => {
     fs.writeFileSync(DATA_FILE, JSON.stringify(shuffles, null, 2));
+    console.log('Shuffles saved')
 };
 
 app.get('/api/shuffles', (req, res) => {
